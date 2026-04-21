@@ -8,6 +8,8 @@ public class VehiculoCombustible: Vehiculo
 {
     private double kilometrosPorLitro;
     private double litrosExtra;
+    private double consumoTotal;
+    private int antiguedad;
 
     public VehiculoCombustible(string patente, string marca, string modelo, int anio, double capacidadCarga, 
         Sucursal sucursal, double kilometrosPorLitro, double litrosExtra) : base(VehiculoTipo.Combustible, patente, marca, modelo, anio, capacidadCarga, sucursal)
@@ -28,6 +30,12 @@ public class VehiculoCombustible: Vehiculo
 
     public override double CalcularConsumo(double kilometros)
     {
-        return kilometros * kilometrosPorLitro;
+        consumoTotal = kilometros / kilometrosPorLitro;
+        antiguedad = 2026 - this.GetAnio();
+        if(antiguedad > 5)
+        {
+            consumoTotal = consumoTotal + ((kilometros / 15) * litrosExtra);
+        }
+        return consumoTotal;
     }
 }
